@@ -62,3 +62,6 @@ let g:go_auto_sameids = 1
 
 " escape remap
 inoremap jj <esc>
+
+" gocode autocompletion remap to CTRL-space
+inoremap <C-@> <C-x><C-o>
