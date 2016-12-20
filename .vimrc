@@ -18,7 +18,7 @@ set hls
 set lbr
 
 " Change colorscheme from default to delek
-colorscheme delek
+" colorscheme delek
 
 " vim-plug
 call plug#begin('~/.vim/plugged')
@@ -59,3 +59,6 @@ let g:go_metalinter_deadline = "5s"
 let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
+
+" escape remap
+inoremap jj <esc>
