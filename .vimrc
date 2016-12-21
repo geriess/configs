@@ -68,3 +68,8 @@ inoremap jj <esc>
 
 " gocode autocompletion remap to CTRL-space
 inoremap <C-@> <C-x><C-o>
+
+" Windows settings
+if has("win32")
+ set guifont=Consolas:h15:cANSI 
+endif
