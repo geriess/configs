@@ -27,6 +27,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go', { 'tag': 'v1.10' }
 Plug 'fatih/molokai'
 
+" view git diffs
+Plug 'airblade/vim-gitgutter'
+
 " ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
 
