@@ -60,11 +60,19 @@ let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
-" escape remap
+" remaps insert mode
+
+" exit insert mode 
 inoremap jj <esc>
 
-" gocode autocompletion remap to CTRL-space
+" gocode autocompletion
 inoremap <C-@> <C-x><C-o>
+
+" remaps normal mode
+
+" switch tab left and right
+nnoremap <F7> :tabprevious<CR>
+nnoremap <F8> :tabnext<CR>
 
 " Windows settings
 if has("win32")
