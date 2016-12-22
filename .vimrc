@@ -77,7 +77,11 @@ inoremap <C-@> <C-x><C-o>
 nnoremap <F7> :tabprevious<CR>
 nnoremap <F8> :tabnext<CR>
 
+" tab session save and restore
+map <F2> :mksession! ~/vim_session<CR>
+map <F3> :source ~/vim_session<CR>
+
 " Windows settings
 if has("win32")
- set guifont=Consolas:h15:cANSI 
+ set guifont=Consolas:h12:cANSI 
 endif
