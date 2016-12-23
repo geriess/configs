@@ -1,5 +1,50 @@
+" ==================== PLUGINS ====================
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'airblade/vim-gitgutter'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'fatih/vim-go', { 'tag': 'v1.10' }
+Plug 'fatih/molokai'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+" ==================== MAPPINGS ====================
+
+let mapleader = ","
+
+" quickfix see next and previous, close
+map <C-n> :cn<CR>
+map <C-m> :cp<CR>
+nnoremap <leader>a :cclose<CR>
+
+" Close all but the current window 
+nnoremap <leader>o :only<CR>
+
+" Close current screen 
+nnoremap <leader>x :clo<CR>
+
+" save and exit
+nnoremap <leader>w :w!<cr>
+" nnoremap <silent> <leader>q :q!<CR>
+
+" exit insert mode
+inoremap jj <esc>
+
+" gocode autocompletion
+inoremap <C-@> <C-x><C-o>
+
+" reload vimrc 
+nnoremap <F5> :source $MYVIMRC<CR>
+
+" switch tab left and right
+nnoremap <F7> :tabprevious<CR>
+nnoremap <F8> :tabnext<CR>
+
 " ==================== SETTINGS ====================
-" ==================================================
 
 " Indent automatically depending on filetype
 filetype indent on
@@ -23,15 +68,17 @@ set lbr
 " Change colorscheme from default to delek
 colorscheme delek
 
-
-" Windows 
+" Windows
 if has("win32")
- set guifont=Consolas:h12:cANSI 
+ set guifont=Consolas:h15:cANSI 
 endif
 
 " set nocompatible
 " filetype on
 filetype plugin indent on
+
+" print path
+map <C-f> :echo expand("%:p")<cr>
 
 " ==================== vim-go ====================
 
@@ -67,33 +114,125 @@ let g:go_auto_sameids = 1
 " let g:vim_json_syntax_conceal = 0
 autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 
-" ==================== MAPPINGS ====================
+" ==================== lightline ==================
 
-" exit insert mode
-inoremap jj <esc>
+" show status bar
+set laststatus=2
 
-" gocode autocompletion
-inoremap <C-@> <C-x><C-o>
+let g:lightline = {
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste'],
+	\             [ 'fugitive', 'filename', 'modified', 'ctrlpmark', 'go'] ],
+	\   'right': [ [ 'lineinfo' ], 
+	\              [ 'percent' ], 
+	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+	\ },
+	\ 'component': {
+	\   'go': '%#goStatuslineColor#%{LightLineGo()}',
+	\ },
+	\ 'component_visible_condition': {
+	\ 'go': '(exists("*go#statusline#Show") && ""!=go#statusline#Show())'
+	\ },
+	\ 'component_function': {
+	\   'lineinfo': 'LightLineInfo',
+	\   'percent': 'LightLinePercent',
+	\   'modified': 'LightLineModified',
+	\   'filename': 'LightLineFilename',
+	\   'fileformat': 'LightLineFileformat',
+	\   'filetype': 'LightLineFiletype',
+	\   'fileencoding': 'LightLineFileencoding',
+	\   'mode': 'LightLineMode',
+	\   'fugitive': 'LightLineFugitive',
+	\   'ctrlpmark': 'CtrlPMark',
+	\ },
+	\ }
 
-" tab session save and restore
-map <F2> :mksession! ~/vim_session<CR>
-map <F3> :source ~/vim_session<CR>
+function! LightLineModified()
+if &filetype == "help"
+	return ""
+elseif &modified
+	return "+"
+elseif &modifiable
+	return ""
+else
+	return ""
+endif
+endfunction
 
-" reload vimrc 
-nnoremap <F5> :source $MYVIMRC<CR>
+function! LightLineFileformat()
+	return winwidth(0) > 70 ? &fileformat : ''
+endfunction
 
-" switch tab left and right
-nnoremap <F7> :tabprevious<CR>
-nnoremap <F8> :tabnext<CR>
+function! LightLineFiletype()
+	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
 
-" ==================== PLUGINS ====================
+function! LightLineFileencoding()
+	return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
 
-call plug#begin('~/.vim/plugged')
+function! LightLineInfo()
+	return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
+endfunction
 
-Plug 'fatih/vim-go', { 'tag': 'v1.10' }
-Plug 'fatih/molokai'
-Plug 'airblade/vim-gitgutter'
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'ctrlpvim/ctrlp.vim'
+function! LightLinePercent()
+	return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
+endfunction
 
-call plug#end()
+function! LightLineFugitive()
+	return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+function! LightLineGo()
+	return exists('*go#statusline#Show') ? go#statusline#Show() : ''
+endfunction
+
+function! LightLineMode()
+	let fname = expand('%:t')
+	return fname == 'ControlP' ? 'CtrlP' :
+				\ &ft == 'vimfiler' ? 'VimFiler' :
+				\ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightLineFilename()
+	let fname = expand('%:t')
+	if mode() == 't'
+		return ''
+	endif
+
+	return fname == 'ControlP' ? g:lightline.ctrlp_item :
+				\ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+				\ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+				\ ('' != fname ? fname : '[No Name]')
+endfunction
+
+function! LightLineReadonly()
+	return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! CtrlPMark()
+	if expand('%:t') =~ 'ControlP'
+		call lightline#link('iR'[g:lightline.ctrlp_regex])
+		return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+					\ , g:lightline.ctrlp_next], 0)
+	else
+		return ''
+	endif
+endfunction
+
+let g:ctrlp_status_func = {
+			\ 'main': 'CtrlPStatusFunc_1',
+			\ 'prog': 'CtrlPStatusFunc_2',
+			\ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+	let g:lightline.ctrlp_regex = a:regex
+	let g:lightline.ctrlp_prev = a:prev
+	let g:lightline.ctrlp_item = a:item
+	let g:lightline.ctrlp_next = a:next
+	return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+	return lightline#statusline(0)
+endfunction
