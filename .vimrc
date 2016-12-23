@@ -23,9 +23,10 @@ set lbr
 " Change colorscheme from default to delek
 colorscheme delek
 
-" Windows
+
+" Windows 
 if has("win32")
- set guifont=Consolas:h15:cANSI 
+ set guifont=Consolas:h12:cANSI 
 endif
 
 " set nocompatible
@@ -73,6 +74,10 @@ inoremap jj <esc>
 
 " gocode autocompletion
 inoremap <C-@> <C-x><C-o>
+
+" tab session save and restore
+map <F2> :mksession! ~/vim_session<CR>
+map <F3> :source ~/vim_session<CR>
 
 " reload vimrc 
 nnoremap <F5> :source $MYVIMRC<CR>
