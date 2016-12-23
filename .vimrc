@@ -1,3 +1,6 @@
+" ==================== SETTINGS ====================
+" ==================================================
+
 " Indent automatically depending on filetype
 filetype indent on
 set autoindent
@@ -18,24 +21,19 @@ set hls
 set lbr
 
 " Change colorscheme from default to delek
-" colorscheme delek
+colorscheme delek
 
-" vim-plug
-call plug#begin('~/.vim/plugged')
+" Windows
+if has("win32")
+ set guifont=Consolas:h15:cANSI 
+endif
 
-" vim-go
-Plug 'fatih/vim-go', { 'tag': 'v1.10' }
-Plug 'fatih/molokai'
+" set nocompatible
+" filetype on
+filetype plugin indent on
 
-" view git diffs
-Plug 'airblade/vim-gitgutter'
+" ==================== vim-go ====================
 
-" ctrlp
-Plug 'ctrlpvim/ctrlp.vim'
-
-call plug#end()
-
-" vim-go settings
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
@@ -55,7 +53,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:rehash256 = 1
 let g:molokai_original = 1
-colorscheme molokai
+" colorscheme molokai
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"
@@ -63,21 +61,34 @@ let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
-" remaps insert mode
+" =================== vim-json ====================
 
-" exit insert mode 
+" let g:vim_json_syntax_conceal = 0
+autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+
+" ==================== MAPPINGS ====================
+
+" exit insert mode
 inoremap jj <esc>
 
 " gocode autocompletion
 inoremap <C-@> <C-x><C-o>
 
-" remaps normal mode
+" reload vimrc 
+nnoremap <F5> :source $MYVIMRC<CR>
 
 " switch tab left and right
 nnoremap <F7> :tabprevious<CR>
 nnoremap <F8> :tabnext<CR>
 
-" Windows settings
-if has("win32")
- set guifont=Consolas:h15:cANSI 
-endif
+" ==================== PLUGINS ====================
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'fatih/vim-go', { 'tag': 'v1.10' }
+Plug 'fatih/molokai'
+Plug 'airblade/vim-gitgutter'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'ctrlpvim/ctrlp.vim'
+
+call plug#end()
