@@ -3,11 +3,13 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+" Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fatih/vim-go', { 'tag': 'v1.10' }
 Plug 'fatih/molokai'
 Plug 'itchyny/lightline.vim'
+Plug 't9md/vim-choosewin'
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
@@ -113,6 +115,11 @@ let g:go_auto_sameids = 1
 
 " let g:vim_json_syntax_conceal = 0
 autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+
+" ==================== choosewin ==================
+
+let g:choosewin_overlay_enable = 1
+nmap  -  <Plug>(choosewin)
 
 " ==================== lightline ==================
 
