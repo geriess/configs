@@ -9,8 +9,11 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fatih/vim-go', { 'tag': 'v1.10' }
 Plug 'fatih/molokai'
 Plug 'itchyny/lightline.vim'
+" Plug 'pangloss/vim-javascript'
 Plug 't9md/vim-choosewin'
+" Plug 'ternjs/tern_for_vim'
 Plug 'tpope/vim-fugitive'
+" Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
@@ -39,8 +42,9 @@ inoremap jj <esc>
 " gocode autocompletion
 inoremap <C-@> <C-x><C-o>
 
-" reload vimrc 
+" reload and edit vimrc 
 nnoremap <F5> :source $MYVIMRC<CR>
+nnoremap <leader><F5> :edit $MYVIMRC<CR>
 
 " switch tab left and right
 nnoremap <F7> :tabprevious<CR>
@@ -68,7 +72,7 @@ set hls
 set lbr
 
 " Change colorscheme from default to delek
-colorscheme delek
+" colorscheme delek
 
 " Windows
 if has("win32")
@@ -82,7 +86,28 @@ filetype plugin indent on
 " print path
 map <C-f> :echo expand("%:p")<cr>
 
+" ==================== CtrlP =====================
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_switch_buffer = 'et'  " jump to a file if it's open already
+let g:ctrlp_mruf_max=450    " number of recently opened files
+let g:ctrlp_max_files=0     " do not limit the number of searchable files
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
+let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
+let g:ctrlp_working_path_mode = 'ra'
+
+nmap <C-b> :CtrlPCurWD<cr>
+imap <C-b> <esc>:CtrlPCurWD<cr>
+
 " ==================== vim-go ====================
+
+nmap <C-g> :GoDecls<cr>
+imap <C-g> <esc>:<C-u>GoDecls<cr>
 
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -103,7 +128,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:rehash256 = 1
 let g:molokai_original = 1
-" colorscheme molokai
+colorscheme molokai
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"
