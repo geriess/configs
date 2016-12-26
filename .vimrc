@@ -54,16 +54,25 @@ nnoremap <F8> :tabnext<CR>
 " Toggle highlight from searches
 nnoremap <leader>/ :set hlsearch!<CR>
 
-" ==================== SETTINGS ====================
+" Remove search highlight
+nnoremap <leader><space> :nohlsearch<CR>
 
-" Indent automatically depending on filetype
+" Center the screen
+nnoremap <space> zz 
+
+" Center search on screen
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" ==================== SETTINGS ====================
 
 filetype plugin indent on 
 set autoindent
 
 set nocompatible
 
-set autoread " Auto-reload files changed outside vim
+" Auto-reload files changed outside vim
+set autoread 
 
 " A better backspace
 set backspace=indent,eol,start
@@ -71,7 +80,7 @@ set backspace=indent,eol,start
 " Case-insensitive searching
 set ignorecase
 
-" Case-sensitive search if uppoer case letter
+" Case-sensitive search if upper case letter
 set smartcase
 
 " Turn on line numbering. Turn it off with "set nonu" 
@@ -109,7 +118,6 @@ if has("win32")
  set guifont=Consolas:h15:cANSI 
 endif
 
-
 " print path
 map <C-f> :echo expand("%:p")<cr>
 
@@ -123,7 +131,7 @@ let g:ctrlp_mruf_max=450    " number of recently opened files
 let g:ctrlp_max_files=0     " do not limit the number of searchable files
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
 let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
 let g:ctrlp_working_path_mode = 'ra'
@@ -145,6 +153,9 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
+autocmd FileType go nmap <silent> <Leader>d <Plug>(go-doc)
+autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
