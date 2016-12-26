@@ -1,4 +1,6 @@
-" ==================== PLUGINS ====================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  PLUGINS                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
 
@@ -21,7 +23,9 @@ Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
-" ==================== MAPPINGS ====================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  MAPPINGS                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " map leader key
 let mapleader = ","
@@ -68,7 +72,9 @@ nnoremap <space> zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" ==================== SETTINGS ====================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  SETTINGS                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 filetype plugin indent on 
 set autoindent
@@ -113,11 +119,28 @@ set lbr
 " Default 
 set encoding=utf-8
 
-" Change colorscheme from default to delek
-" colorscheme delek
+" Split right of current window
+set splitright
+
+" Split below of current window
+set splitbelow
+
+" Automatic saving
+set autowrite
+
+" Hide buffer when abandoned
+set hidden
 
 " Save Vim info on exit
 set viminfo='200
+
+" Dont show status since it's in lighline 
+set noshowmode
+
+" Change complete menu behavior
+set completeopt=menu,menuone
+
+set lazyredraw
 
 " Windows
 if has("win32")
@@ -127,13 +150,53 @@ endif
 " print path
 map <C-f> :echo expand("%:p")<cr>
 
-" =================== UltiSnips =================
-
-let g:UltiSnipsExpandTrigger="<tab>"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 UltiSnips                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
 
-" ==================== CtrlP =====================
+function! g:UltiSnips_Complete()
+	call UltiSnips#ExpandSnippet()
+	if g:ulti_expand_res == 0
+		if pumvisible()
+			return "\<C-n>"
+		else
+			call UltiSnips#JumpForwards()
+			if g:ulti_jump_forwards_res == 0
+				return "\<TAB>"
+			endif
+		endif
+	endif
+	return ""
+endfunction
+
+function! g:UltiSnips_Reverse()
+	call UltiSnips#JumpBackwards()
+	if g:ulti_jump_backwards_res == 0
+		return "\<C-P>"
+	endif
+
+	return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+	let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   CtrlP                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -151,7 +214,9 @@ let g:ctrlp_working_path_mode = 'ra'
 nmap <C-b> :CtrlPCurWD<cr>
 imap <C-b> <esc>:CtrlPCurWD<cr>
 
-" ==================== vim-go ====================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   vim-go                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " show go declarations
 nmap <C-g> :GoDecls<cr>
@@ -189,7 +254,9 @@ let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
-" =================== vim-json ====================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  vim-json                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " let g:vim_json_syntax_conceal = 0
 autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
@@ -199,7 +266,9 @@ autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 let g:choosewin_overlay_enable = 1
 nmap  -  <Plug>(choosewin)
 
-" ==================== NerdTree ==================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  NerdTree                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 noremap <Leader>n :NERDTreeToggle<cr>
 noremap <Leader>f :NERDTreeFind<cr>
@@ -212,7 +281,9 @@ let g:NERDTreeMouseMode = 2
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" ==================== lightline ==================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 lightline                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " show status bar
 set laststatus=2
