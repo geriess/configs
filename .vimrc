@@ -6,10 +6,14 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'fatih/vim-go', { 'tag': 'v1.10' }
-Plug 'fatih/molokai', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/molokai', 
+Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 " Plug 'pangloss/vim-javascript'
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/nerdtree'
+Plug 'sirver/ultisnips'
 Plug 't9md/vim-choosewin'
 " Plug 'ternjs/tern_for_vim'
 Plug 'tpope/vim-fugitive'
@@ -69,6 +73,8 @@ nnoremap N Nzzzv
 filetype plugin indent on 
 set autoindent
 
+colorscheme molokai
+
 set nocompatible
 
 " Auto-reload files changed outside vim
@@ -83,7 +89,7 @@ set ignorecase
 " Case-sensitive search if upper case letter
 set smartcase
 
-" Turn on line numbering. Turn it off with "set nonu" 
+" Turn on line numbering
 set number
 
 " Show match while typing
@@ -120,6 +126,12 @@ endif
 
 " print path
 map <C-f> :echo expand("%:p")<cr>
+
+" =================== UltiSnips =================
+
+let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " ==================== CtrlP =====================
 
@@ -170,7 +182,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:rehash256 = 1
 let g:molokai_original = 1
-colorscheme molokai
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"
@@ -187,6 +198,19 @@ autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 
 let g:choosewin_overlay_enable = 1
 nmap  -  <Plug>(choosewin)
+
+" ==================== NerdTree ==================
+
+noremap <Leader>n :NERDTreeToggle<cr>
+noremap <Leader>f :NERDTreeFind<cr>
+let NERDTreeShowHidden=1
+let g:NERDTreeMouseMode = 2
+" let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
+" let NERDTreeShowBookmarks=1
+
+" Start NerdTree automatically if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ==================== lightline ==================
 
