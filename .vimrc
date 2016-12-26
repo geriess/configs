@@ -7,7 +7,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fatih/vim-go', { 'tag': 'v1.10' }
-Plug 'fatih/molokai'
+Plug 'fatih/molokai', { 'do': ':GoInstallBinaries' }
 Plug 'itchyny/lightline.vim'
 " Plug 'pangloss/vim-javascript'
 Plug 't9md/vim-choosewin'
@@ -19,14 +19,17 @@ call plug#end()
 
 " ==================== MAPPINGS ====================
 
+" map leader key
 let mapleader = ","
 
-" quickfix see next and previous, close
-map <C-n> :cn<CR>
-map <C-m> :cp<CR>
+" quickfix see next/previous
+map <C-n> :cn<CR>  
+map <C-m> :cp<CR> 
+
+" quickfix close
 nnoremap <leader>a :cclose<CR>
 
-" Close all but the current window 
+" Close all but current window 
 nnoremap <leader>o :only<CR>
 
 " Close current screen 
@@ -34,13 +37,11 @@ nnoremap <leader>x :clo<CR>
 
 " save and exit
 nnoremap <leader>w :w!<cr>
+nnoremap <silent> <leader>q :q<CR>
 " nnoremap <silent> <leader>q :q!<CR>
 
 " exit insert mode
 inoremap jj <esc>
-
-" gocode autocompletion
-inoremap <C-@> <C-x><C-o>
 
 " reload and edit vimrc 
 nnoremap <F5> :source $MYVIMRC<CR>
@@ -50,20 +51,43 @@ nnoremap <leader><F5> :edit $MYVIMRC<CR>
 nnoremap <F7> :tabprevious<CR>
 nnoremap <F8> :tabnext<CR>
 
+" Toggle highlight from searches
+nnoremap <leader>/ :set hlsearch!<CR>
+
 " ==================== SETTINGS ====================
 
 " Indent automatically depending on filetype
-filetype indent on
+
+filetype plugin indent on 
 set autoindent
+
+set nocompatible
+
+set autoread " Auto-reload files changed outside vim
+
+" A better backspace
+set backspace=indent,eol,start
+
+" Case-insensitive searching
+set ignorecase
+
+" Case-sensitive search if uppoer case letter
+set smartcase
 
 " Turn on line numbering. Turn it off with "set nonu" 
 set number
 
+" Show match while typing
+set incsearch
+
+" Highlight found searches
+set hlsearch
+
+" Enable mouse
+set mouse=a 
+
 " Set syntax on
 syntax on
-
-" Case insensitive search
-set ic
 
 " Higlhight search
 set hls
@@ -71,17 +95,20 @@ set hls
 " Wrap text instead of being on one line
 set lbr
 
+" Default 
+set encoding=utf-8
+
 " Change colorscheme from default to delek
 " colorscheme delek
+
+" Save Vim info on exit
+set viminfo='200
 
 " Windows
 if has("win32")
  set guifont=Consolas:h15:cANSI 
 endif
 
-" set nocompatible
-" filetype on
-filetype plugin indent on
 
 " print path
 map <C-f> :echo expand("%:p")<cr>
@@ -106,8 +133,12 @@ imap <C-b> <esc>:CtrlPCurWD<cr>
 
 " ==================== vim-go ====================
 
+" show go declarations
 nmap <C-g> :GoDecls<cr>
 imap <C-g> <esc>:<C-u>GoDecls<cr>
+
+" gocode autocompletion
+inoremap <C-@> <C-x><C-o>
 
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
