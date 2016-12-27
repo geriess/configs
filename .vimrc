@@ -27,7 +27,7 @@ call plug#end()
 "                                  MAPPINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" map leader key
+" Set leader key
 let mapleader = ","
 
 " quickfix see next/previous
@@ -97,6 +97,9 @@ set smartcase
 
 " Turn on line numbering
 set number
+
+" Highlight current line
+set cursorline
 
 " Show match while typing
 set incsearch
