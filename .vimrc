@@ -277,8 +277,8 @@ noremap <Leader>n :NERDTreeToggle<cr>
 noremap <Leader>f :NERDTreeFind<cr>
 let NERDTreeShowHidden=1
 let g:NERDTreeMouseMode = 2
-" let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
-" let NERDTreeShowBookmarks=1
+let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
+let NERDTreeShowBookmarks=1
 
 " Start NerdTree automatically if no file specified
 autocmd StdinReadPre * let s:std_in=1
