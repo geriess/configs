@@ -76,12 +76,23 @@ nnoremap N Nzzzv
 "                                  SETTINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Not vi
+set nocompatible
+
+" Allow colors 
+syntax enable
+
 filetype plugin indent on 
+
+" search into subfolders; tab-completion for files
+set path +=**
+
+" display matching files when tab complete
+set wildmenu
+
 set autoindent
 
 colorscheme molokai
-
-set nocompatible
 
 " Auto-reload files changed outside vim
 set autoread 
@@ -109,9 +120,6 @@ set hlsearch
 
 " Enable mouse
 set mouse=a 
-
-" Set syntax on
-syntax on
 
 " Higlhight search
 set hls
