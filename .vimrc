@@ -4,25 +4,37 @@
 
 call plug#begin('~/.vim/plugged')
 
+" Utils
 Plug 'airblade/vim-gitgutter'
-" Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'fatih/molokai', 
 Plug 'honza/vim-snippets'
-Plug 'itchyny/lightline.vim'
-" Plug 'pangloss/vim-javascript'
 Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
+
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+
+" tpope
+Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'tpope/vim-fugitive' " git tool set
+Plug 'tpope/vim-repeat' " allow dot repeat in plugins
+
+" JavaScript
+Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " indent support
+Plug 'othree/yajs.vim', { 'for': 'javascript' } " syntax plugin
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond syntax
+Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript'] } " JSX support
+
+" Visual aides
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free
+Plug 'fatih/molokai' " color scheme 
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
+Plug 'itchyny/lightline.vim'
 Plug 't9md/vim-choosewin'
-" Plug 'ternjs/tern_for_vim'
-Plug 'tpope/vim-fugitive'
-" Plug 'vim-syntastic/syntastic'
 
 call plug#end()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  SETTINGS                                  "
@@ -85,8 +97,10 @@ set mouse=a
 " Higlhight search
 set hls
 
-" Wrap text instead of being on one line
+" Wrap text at word boundary
+set wrap
 set lbr
+set showbreak=↪
 
 " Default 
 set encoding=utf-8
@@ -113,6 +127,18 @@ set noshowmode
 set completeopt=menu,menuone
 
 set lazyredraw
+
+" Tab control
+set noexpandtab             " insert tabs rather than spaces for <Tab>
+set smarttab                " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=4               " the visible width of tabs
+set softtabstop=4           " edit as if the tabs are 4 characters wide
+set shiftwidth=4            " number of spaces to use for indent and unindent
+set shiftround              " round indent to a multiple of 'shiftwidth'
+
+set ttyfast                 " faster redrawing
+set diffopt+=vertical
+set scrolloff=3             " lines of text around cursor
 
 " Windows
 if has("win32")
@@ -172,6 +198,23 @@ nnoremap <space> zz
 " Center search on screen
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Save and restore session
+map <F2> :mksession! ~/vim_session<CR>
+map <F3> :source ~/vim_session<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Goyo                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>m :Goyo<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 limelight                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Activate limelight in Goyo mode
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 UltiSnips                                  "
