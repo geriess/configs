@@ -23,54 +23,6 @@ Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  MAPPINGS                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Set leader key
-let mapleader = ","
-
-" quickfix see next/previous
-map <C-n> :cn<CR>  
-map <C-m> :cp<CR> 
-
-" quickfix close
-nnoremap <leader>a :cclose<CR>
-
-" Close all but current window 
-nnoremap <leader>o :only<CR>
-
-" Close current screen 
-nnoremap <leader>x :clo<CR>
-
-" save and exit
-nnoremap <leader>w :w!<cr>
-nnoremap <silent> <leader>q :q<CR>
-" nnoremap <silent> <leader>q :q!<CR>
-
-" exit insert mode
-inoremap jj <esc>
-
-" reload and edit vimrc 
-nnoremap <F5> :source $MYVIMRC<CR>
-nnoremap <leader><F5> :edit $MYVIMRC<CR>
-
-" switch tab left and right
-nnoremap <F7> :tabprevious<CR>
-nnoremap <F8> :tabnext<CR>
-
-" Toggle highlight from searches
-nnoremap <leader>/ :set hlsearch!<CR>
-
-" Remove search highlight
-nnoremap <leader><space> :nohlsearch<CR>
-
-" Center the screen
-nnoremap <space> zz 
-
-" Center search on screen
-nnoremap n nzzzv
-nnoremap N Nzzzv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  SETTINGS                                  "
@@ -82,16 +34,25 @@ set nocompatible
 " Allow colors 
 syntax enable
 
+" Enable filetype detection, plugin loading
 filetype plugin indent on 
 
-" search into subfolders; tab-completion for files
+" Search into subfolders; tab-completion for files
 set path +=**
 
-" display matching files when tab complete
+" Display matching files when tab complete
 set wildmenu
 
+" Copy indent from current line
 set autoindent
 
+" Show command when typed
+set showcmd
+
+" Change colors
+let g:rehash256 = 1
+set background=dark
+let g:molokai_original = 1
 colorscheme molokai
 
 " Auto-reload files changed outside vim
@@ -160,6 +121,57 @@ endif
 
 " print path
 map <C-f> :echo expand("%:p")<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  MAPPINGS                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Example to load your own snippet sans plugin
+" nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>
+
+" Set leader key
+let mapleader = ","
+
+" quickfix see next/previous
+map <C-n> :cn<CR>  
+map <C-m> :cp<CR> 
+
+" quickfix close
+nnoremap <leader>a :cclose<CR>
+
+" Close all but current window 
+nnoremap <leader>o :only<CR>
+
+" Close current screen 
+nnoremap <leader>x :clo<CR>
+
+" save and exit
+nnoremap <leader>w :w!<cr>
+nnoremap <silent> <leader>q :q<CR>
+" nnoremap <silent> <leader>q :q!<CR>
+
+" exit insert mode
+inoremap jj <esc>
+
+" reload and edit vimrc 
+nnoremap <F5> :source $MYVIMRC<CR>
+nnoremap <leader><F5> :edit $MYVIMRC<CR>
+
+" switch tab left and right
+nnoremap <F7> :tabprevious<CR>
+nnoremap <F8> :tabnext<CR>
+
+" Toggle highlight from searches
+nnoremap <leader>/ :set hlsearch!<CR>
+
+" Remove search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Center the screen
+nnoremap <space> zz 
+
+" Center search on screen
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 UltiSnips                                  "
@@ -256,8 +268,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:rehash256 = 1
-let g:molokai_original = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"
