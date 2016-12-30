@@ -20,6 +20,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-fugitive' " git tool set
 Plug 'tpope/vim-repeat' " allow dot repeat in plugins
+Plug 'tpope/vim-surround' " easy modify surrounds 
 
 " JavaScript
 Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " indent support
