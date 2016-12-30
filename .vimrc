@@ -29,11 +29,11 @@ Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond synta
 Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript'] } " JSX support
 
 " Visual aides
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 Plug 'fatih/molokai' " color scheme 
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
-Plug 'itchyny/lightline.vim'
-Plug 't9md/vim-choosewin'
+Plug 'itchyny/lightline.vim' " status bar
+Plug 't9md/vim-choosewin' " window label overlay
 
 call plug#end()
 
@@ -58,6 +58,9 @@ set wildmenu
 
 " Copy indent from current line
 set autoindent
+
+" Add indent based on surrounding code
+set smartindent
 
 " Show command when typed
 set showcmd
@@ -138,8 +141,10 @@ set shiftwidth=4            " number of spaces to use for indent and unindent
 set shiftround              " round indent to a multiple of 'shiftwidth'
 
 set ttyfast                 " faster redrawing
-set diffopt+=vertical
+set ttyscroll=3
 set scrolloff=3             " lines of text around cursor
+
+set diffopt+=vertical
 
 " Windows
 if has("win32")
@@ -157,6 +162,9 @@ map <C-f> :echo expand("%:p")<cr>
 
 " Set leader key
 let mapleader = ","
+
+" omnicompletion
+inoremap <C-@> <C-x><C-o>
 
 " quickfix see next/previous
 map <C-n> :cn<CR>  
@@ -289,8 +297,6 @@ imap <C-b> <esc>:CtrlPCurWD<cr>
 nmap <C-g> :GoDecls<cr>
 imap <C-g> <esc>:<C-u>GoDecls<cr>
 
-" gocode autocompletion
-inoremap <C-@> <C-x><C-o>
 
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
