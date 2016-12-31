@@ -211,6 +211,10 @@ nnoremap <space> zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Center search on scroll down/up
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+
 " Save and restore session
 map <F2> :mksession! ~/vim_session<CR>
 map <F3> :source ~/vim_session<CR>
@@ -354,6 +358,12 @@ let NERDTreeShowBookmarks=1
 " Start NerdTree automatically if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  fugitive                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 lightline                                  "
