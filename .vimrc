@@ -304,7 +304,6 @@ imap <C-b> <esc>:CtrlPCurWD<cr>
 nmap <C-g> :GoDecls<cr>
 imap <C-g> <esc>:<C-u>GoDecls<cr>
 
-
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
@@ -313,6 +312,9 @@ autocmd FileType go nmap <Leader>i <Plug>(go-info)
 autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
 autocmd FileType go nmap <silent> <Leader>d <Plug>(go-doc)
 autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
+autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -326,11 +328,22 @@ let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"
 let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
+let g:go_autodetect_gopath = 1
+let g:go_highlight_build_constraints = 1
+
+" create a go doc comment based on the word under the cursor
+function! s:create_go_doc_comment()
+	norm "zyiw
+	execute ":put! z"
+	execute ":norm I// \<Esc>$"
+endfunction
+nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  vim-json                                  "
