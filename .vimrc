@@ -65,6 +65,9 @@ set smartindent
 " Show command when typed
 set showcmd
 
+" Set CWD automatically based on current file
+autocmd BufEnter * silent! lcd %:p:h
+
 " Change colors
 let g:rehash256 = 1
 set background=dark
