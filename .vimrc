@@ -53,6 +53,7 @@ filetype plugin indent on
 " Search into subfolders; tab-completion for files
 set path +=**
 
+
 " Display matching files when tab complete
 set wildmenu
 
@@ -109,7 +110,11 @@ set wrap
 set lbr
 set showbreak=↪
 
-" Default 
+" toggle invisible characters
+set list
+set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+
+" Default
 set encoding=utf-8
 
 " Split right of current window
@@ -127,7 +132,7 @@ set hidden
 " Save Vim info on exit
 set viminfo='200
 
-" Dont show status since it's in lighline 
+" Dont show status since it's in lighline
 set noshowmode
 
 " Change complete menu behavior
