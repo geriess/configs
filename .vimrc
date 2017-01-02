@@ -90,6 +90,9 @@ set smartcase
 " Turn on line numbering
 set number
 
+" Set relative line numbering
+set relativenumber
+
 " Highlight current line
 set cursorline
 
@@ -237,6 +240,12 @@ vno <down> <Nop>
 vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 GitGutter                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap ]h :GitGutterNextHunk<CR>
+nmap [h :GitGutterPrevHunk<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Goyo                                    "
