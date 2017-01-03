@@ -111,11 +111,11 @@ set hls
 " Wrap text at word boundary
 set wrap
 set lbr
-set showbreak=↪
+set showbreak=&
 
 " toggle invisible characters
 set list
-set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:→\ ,eol:¬,trail:*,extends:>,precedes:<
 
 " Default
 set encoding=utf-8
