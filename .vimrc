@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  PLUGINS                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" Plugin manager is Vim-Plug: https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
 " Utils
@@ -53,6 +53,8 @@ filetype plugin indent on
 " Search into subfolders; tab-completion for files
 set path +=**
 
+" Prefer Unix over Windows over OS 9 formats
+set fileformats=unix,dos,mac
 
 " Display matching files when tab complete
 set wildmenu
@@ -115,7 +117,7 @@ set showbreak=&
 
 " toggle invisible characters
 set list
-set listchars=tab:→\ ,eol:¬,trail:*,extends:>,precedes:<
+set listchars=tab:→\ ,eol:¬,trail:°,extends:»,precedes:«
 
 " Default
 set encoding=utf-8
