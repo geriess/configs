@@ -50,6 +50,9 @@ syntax enable
 " Enable filetype detection, plugin loading
 filetype plugin indent on 
 
+" No swap file
+set noswapfile
+
 " Search into subfolders; tab-completion for files
 set path +=**
 
