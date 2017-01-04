@@ -119,12 +119,12 @@ set wrap
 set lbr
 set showbreak=&
 
+" Default
+set encoding=utf-8
+
 " toggle invisible characters
 set list
 set listchars=tab:→\ ,eol:¬,trail:°,extends:»,precedes:«
-
-" Default
-set encoding=utf-8
 
 " Split right of current window
 set splitright
