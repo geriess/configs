@@ -164,8 +164,9 @@ set scrolloff=3             " lines of text around cursor
 set diffopt+=vertical
 
 " Windows
-if has("win32")
- set guifont=Consolas:h15:cANSI
+if has("windows")
+	set guifont=Consolas:h15:cANSI
+	au GUIEnter * simalt ~x
 endif
 
 " print path
@@ -237,6 +238,10 @@ map <F3> :source ~/vim_session<CR>
 " nmap <leader>t :%s/\s\+$<cr>
 nmap <Leader>t :StripWhitespace<CR>
 
+" Paste from clipboard Windows
+if has("windows")
+	nmap <Leader>p <S-Insert>
+endif
 
 " Disable arrow keys, up/down moves line
 no <down> ddp
