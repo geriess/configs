@@ -12,6 +12,7 @@ Plug 'honza/vim-snippets'
 Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
+Plug 'ntpeters/vim-better-whitespace'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -20,7 +21,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-fugitive' " git tool set
 Plug 'tpope/vim-repeat' " allow dot repeat in plugins
-Plug 'tpope/vim-surround' " easy modify surrounds 
+Plug 'tpope/vim-surround' " easy modify surrounds
 
 " JavaScript
 Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " indent support
@@ -30,7 +31,7 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript'] } " JSX support
 
 " Visual aides
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
-Plug 'fatih/molokai' " color scheme 
+Plug 'fatih/molokai' " color scheme
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
 Plug 'itchyny/lightline.vim' " status bar
 Plug 't9md/vim-choosewin' " window label overlay
@@ -44,11 +45,11 @@ call plug#end()
 " Not vi
 set nocompatible
 
-" Allow colors 
+" Allow colors
 syntax enable
 
 " Enable filetype detection, plugin loading
-filetype plugin indent on 
+filetype plugin indent on
 
 " No swap file
 set noswapfile
@@ -81,7 +82,7 @@ let g:molokai_original = 1
 colorscheme molokai
 
 " Auto-reload files changed outside vim
-set autoread 
+set autoread
 
 " A better backspace
 set backspace=indent,eol,start
@@ -108,7 +109,7 @@ set incsearch
 set hlsearch
 
 " Enable mouse
-set mouse=a 
+set mouse=a
 
 " Higlhight search
 set hls
@@ -164,7 +165,7 @@ set diffopt+=vertical
 
 " Windows
 if has("win32")
- set guifont=Consolas:h15:cANSI 
+ set guifont=Consolas:h15:cANSI
 endif
 
 " print path
@@ -183,16 +184,16 @@ let mapleader = ","
 inoremap <C-@> <C-x><C-o>
 
 " quickfix see next/previous
-map <C-n> :cn<CR>  
-map <C-m> :cp<CR> 
+map <C-n> :cn<CR>
+map <C-m> :cp<CR>
 
 " quickfix close
 nnoremap <leader>a :cclose<CR>
 
-" Close all but current window 
+" Close all but current window
 nnoremap <leader>o :only<CR>
 
-" Close current screen 
+" Close current screen
 nnoremap <leader>x :clo<CR>
 
 " save and exit
@@ -203,7 +204,7 @@ nnoremap <silent> <leader>q :q<CR>
 " exit insert mode
 inoremap jj <esc>
 
-" reload and edit vimrc 
+" reload and edit vimrc
 nnoremap <F5> :source $MYVIMRC<CR>
 nnoremap <leader><F5> :edit $MYVIMRC<CR>
 
@@ -218,7 +219,7 @@ nnoremap <leader>/ :set hlsearch!<CR>
 nnoremap <leader><space> :nohlsearch<CR>
 
 " Center the screen
-nnoremap <space> zz 
+nnoremap <space> zz
 
 " Center search on screen
 nnoremap n nzzzv
@@ -231,6 +232,11 @@ noremap <C-u> <C-u>zz
 " Save and restore session
 map <F2> :mksession! ~/vim_session<CR>
 map <F3> :source ~/vim_session<CR>
+"
+" Remove trailing white space
+" nmap <leader>t :%s/\s\+$<cr>
+nmap <Leader>t :StripWhitespace<CR>
+
 
 " Disable arrow keys, up/down moves line
 no <down> ddp
@@ -422,8 +428,8 @@ let g:lightline = {
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste'],
 	\             [ 'fugitive', 'filename', 'modified', 'ctrlpmark', 'go'] ],
-	\   'right': [ [ 'lineinfo' ], 
-	\              [ 'percent' ], 
+	\   'right': [ [ 'lineinfo' ],
+	\              [ 'percent' ],
 	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
 	\ },
 	\ 'component': {
