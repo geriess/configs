@@ -5,17 +5,17 @@
 call plug#begin('~/.vim/plugged')
 
 " Utils
-Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'honza/vim-snippets'
-Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdtree'
-Plug 'sirver/ultisnips'
-Plug 'ntpeters/vim-better-whitespace'
+Plug 'airblade/vim-gitgutter' " show git diff in sign column
+Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finde
+Plug 'elzr/vim-json', { 'for': 'json' } " json highlighting
+Plug 'honza/vim-snippets' " snippet files
+Plug 'Raimondi/delimitMate' "automatic closing of surrounds
+Plug 'scrooloose/nerdtree' " amazing file explorer
+Plug 'sirver/ultisnips' " snippet engine
+Plug 'ntpeters/vim-better-whitespace' " whitespace management
 
 " Go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " Golang amazingness
 
 " tpope
 Plug 'tpope/vim-commentary' " comment stuff out
