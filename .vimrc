@@ -226,6 +226,10 @@ nnoremap <space> zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Center serch on paragraph move
+nnoremap { {zzzv
+nnoremap } }zzzv
+
 " Center search on scroll down/up
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
