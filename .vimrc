@@ -172,6 +172,11 @@ endif
 " print path
 map <C-f> :echo expand("%:p")<cr>
 
+" automatic saving and restoring of folds
+set viewdir=$HOME/.vim/.vimview//
+autocmd BufWrite * mkview
+autocmd BufRead * silent loadview
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  MAPPINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
