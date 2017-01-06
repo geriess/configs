@@ -177,6 +177,14 @@ set viewdir=$HOME/.vim/.vimview//
 autocmd BufWrite * mkview
 autocmd BufRead * silent loadview
 
+" quick insert character to end of line
+imap <leader><leader> <Esc>v`^me<Esc>gi<C-o>:call Ender()<CR>
+function! Ender()
+  let endchar = nr2char(getchar())
+  execute "normal \<End>a".endchar
+  normal `e
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  MAPPINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -265,6 +273,17 @@ vno <down> <Nop>
 vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                delimitMate                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_smart_quotes = 1
+let g:delimitMate_expand_inside_quotes = 0
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
+
+imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 GitGutter                                  "
