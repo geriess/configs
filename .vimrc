@@ -149,6 +149,10 @@ set completeopt=menu,menuone
 
 set lazyredraw
 
+set noerrorbells
+set visualbell " flash screen on error insted of beep
+set history=500
+
 " Tab control
 set noexpandtab             " insert tabs rather than spaces for <Tab>
 set smarttab                " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
@@ -250,6 +254,9 @@ noremap <C-u> <C-u>zz
 " Save and restore session
 map <F2> :mksession! ~/vim_session<CR>
 map <F3> :source ~/vim_session<CR>
+
+" Toggle spell check
+map <leader>S :setlocal spell!<cr>
 "
 " Remove trailing white space
 " nmap <leader>t :%s/\s\+$<cr>
