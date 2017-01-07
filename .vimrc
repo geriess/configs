@@ -178,7 +178,7 @@ autocmd BufWrite * mkview
 autocmd BufRead * silent loadview
 
 " quick insert character to end of line
-imap <leader><leader> <Esc>v`^me<Esc>gi<C-o>:call Ender()<CR>
+imap <F1> <Esc>v`^me<Esc>gi<C-o>:call Ender()<CR>
 function! Ender()
   let endchar = nr2char(getchar())
   execute "normal \<End>a".endchar
