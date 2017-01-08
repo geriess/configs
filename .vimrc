@@ -45,7 +45,6 @@ call plug#end()
 " Not vi
 set nocompatible
 
-
 " Enable filetype detection, plugin loading
 filetype plugin indent on
 
@@ -107,6 +106,7 @@ set relativenumber
 
 " Highlight current line
 set cursorline
+
 " Show match while typing
 set incsearch
 
@@ -166,8 +166,10 @@ set confirm
 " avoid many cases of having to press enter to continue
 set cmdheight=2
 
-" Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
+" toggle between 'paste' and 'nopaste'
+nnoremap <F12> :set invpaste paste?<CR>
+imap <F12> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F12>
 
 " Tab control
 set noexpandtab             " insert tabs rather than spaces for <Tab>
