@@ -45,8 +45,6 @@ call plug#end()
 " Not vi
 set nocompatible
 
-" Allow colors
-syntax enable
 
 " Enable filetype detection, plugin loading
 filetype plugin indent on
@@ -62,6 +60,14 @@ set fileformats=unix,dos,mac
 
 " Display matching files when tab complete
 set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+	set wildignore+=.git\*,.hg\*,.svn\*
+else
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
 
 " Copy indent from current line
 set autoindent
@@ -101,7 +107,6 @@ set relativenumber
 
 " Highlight current line
 set cursorline
-
 " Show match while typing
 set incsearch
 
@@ -149,8 +154,11 @@ set completeopt=menu,menuone
 
 set lazyredraw
 
+ " No sounds on errors
 set noerrorbells
-set visualbell " flash screen on error insted of beep
+set novisualbell
+set t_vb=
+
 set history=500
 set nostartofline
 set confirm
@@ -196,6 +204,9 @@ function! Ender()
   execute "normal \<End>a".endchar
   normal `e
 endfunction
+
+" Allow colors
+syntax enable
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  MAPPINGS                                  "
