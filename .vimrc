@@ -152,6 +152,14 @@ set lazyredraw
 set noerrorbells
 set visualbell " flash screen on error insted of beep
 set history=500
+set nostartofline
+set confirm
+
+" avoid many cases of having to press enter to continue
+set cmdheight=2
+
+" Use <F11> to toggle between 'paste' and 'nopaste'
+set pastetoggle=<F11>
 
 " Tab control
 set noexpandtab             " insert tabs rather than spaces for <Tab>
