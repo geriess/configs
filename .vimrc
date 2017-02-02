@@ -210,6 +210,16 @@ endfunction
 " Allow colors
 syntax enable
 
+nnoremap <silent> <Leader>df :call DiffToggle()<CR>
+
+function! DiffToggle()
+    if &diff
+        windo diffoff
+    else
+        windo diffthis
+    endif
+:endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  MAPPINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
