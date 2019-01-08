@@ -13,6 +13,7 @@ Plug 'Raimondi/delimitMate' "automatic closing of surrounds
 Plug 'scrooloose/nerdtree' " amazing file explorer
 Plug 'sirver/ultisnips' " snippet engine
 Plug 'ntpeters/vim-better-whitespace' " whitespace management
+Plug 'nvie/vim-flake8' " python checker
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " Golang amazingness
