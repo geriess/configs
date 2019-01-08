@@ -344,6 +344,14 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 flake8                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:flake8_quickfix_height=7
+let g:flake8_show_in_gutter=1  " show
+let g:flake8_show_in_file=1  " show marks in the file
+autocmd BufWritePost *.py call Flake8() " run every time write to file
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 UltiSnips                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:UltiSnipsExpandTrigger="<tab>"
