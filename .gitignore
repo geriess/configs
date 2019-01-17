@@ -1,3 +1,8 @@
+# Terraform #
+#############
+terraform.tfstate*
+.terraform
+
 # Compiled source #
 ###################
 *.com
