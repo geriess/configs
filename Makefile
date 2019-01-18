@@ -48,5 +48,7 @@ clean:
 
 source:
 	source ~/.zshrc
+	cd ~/code/dotfiles
+	git remote set-url origin git@github.com:geriess/dotfiles.git
 
 .PHONY: all download clean sync build run kill source
