@@ -19,7 +19,7 @@ ln -s $(pwd)/tmuxconf ~/.tmux.conf
 # ln -s $(pwd)/tigrc ~/.tigrc
 ln -s $(pwd)/git-prompt.sh ~/.git-prompt.sh
 ln -s $(pwd)/gitconfig ~/.gitconfig
-# ln -s $(pwd)/agignore ~/.agignore
+ln -s $(pwd)/agignore ~/.agignore
 ln -s $(pwd)/sshconfig ~/.ssh/config
 
 /usr/sbin/sshd -D
