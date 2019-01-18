@@ -41,12 +41,12 @@ RUN mkdir -p /root/.vim/plugged && cd /root/.vim/plugged && \
 	# git clone 'https://github.com/hashivim/vim-hashicorp-tools' && \
 	# git clone 'https://github.com/junegunn/fzf.vim' && \
 	# git clone 'https://github.com/mileszs/ack.vim' && \
-	# git clone 'https://github.com/roxma/vim-tmux-clipboard' && \
+	git clone 'https://github.com/roxma/vim-tmux-clipboard' && \
 	# git clone 'https://github.com/plasticboy/vim-markdown' && \
 	git clone 'https://github.com/scrooloose/nerdtree' && \
 	git clone 'https://github.com/t9md/vim-choosewin' && \
-	# git clone 'https://github.com/tmux-plugins/vim-tmux' && \
-	# git clone 'https://github.com/tmux-plugins/vim-tmux-focus-events' && \
+	git clone 'https://github.com/tmux-plugins/vim-tmux' && \
+	git clone 'https://github.com/tmux-plugins/vim-tmux-focus-events' && \
 	git clone 'https://github.com/tpope/vim-commentary' && \
 	# git clone 'https://github.com/tpope/vim-eunuch' && \
 	git clone 'https://github.com/tpope/vim-fugitive' && \

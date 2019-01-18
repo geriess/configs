@@ -8,9 +8,9 @@ resource "digitalocean_droplet" "dev" {
  private_networking = true
  backups = true
  ipv6 = true
-  ssh_keys = [
+ /* ssh_keys = [
     "${var.ssh_fingerprint}"
-  ]
+  ] */
   lifecycle {
     create_before_destroy = true
   }
@@ -20,7 +20,7 @@ provisioner "remote-exec" {
   connection {
     user = "root"
     type = "ssh"
-	private_key = "${file(var.pvt_key)}"
+	private_key = "${file("~/.ssh/dokey")}"
     timeout = "2m"
     }
   }
@@ -31,7 +31,7 @@ provisioner "file" {
 
     connection {
       type        = "ssh"
-	  private_key = "${file(var.pvt_key)}"
+	  private_key = "${file("~/.ssh/dokey")}"
       user        = "root"
       timeout     = "2m"
     }
@@ -44,7 +44,7 @@ provisioner "file" {
 
     connection {
       type        = "ssh"
-	  private_key = "${file(var.pvt_key)}"
+	  private_key = "${file("~/.ssh/dokey")}"
       user        = "root"
       timeout     = "2m"
     }
