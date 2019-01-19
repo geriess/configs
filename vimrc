@@ -39,13 +39,11 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
 Plug 't9md/vim-choosewin' " window label overlay
 
 " Other - new
-" add the below to Dockerfile 
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ervandew/supertab'
 Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
-Plug 'ervandew/supertab'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'

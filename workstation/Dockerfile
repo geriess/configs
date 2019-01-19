@@ -32,14 +32,14 @@ RUN mkdir -p /root/.vim/plugged && cd /root/.vim/plugged && \
 	git clone 'https://github.com/SirVer/ultisnips' && \
 	# git clone 'https://github.com/cespare/vim-toml' && \
 	# git clone 'https://github.com/corylanou/vim-present' && \
-	# git clone 'https://github.com/ekalinin/Dockerfile.vim' && \
+	git clone 'https://github.com/ekalinin/Dockerfile.vim' && \
 	git clone 'https://github.com/elzr/vim-json' && \
 	git clone 'https://github.com/fatih/vim-go' && \
 	# git clone 'https://github.com/fatih/vim-hclfmt' && \
 	# git clone 'https://github.com/fatih/vim-nginx' && \
-	# git clone 'https://github.com/godlygeek/tabular' && \
-	# git clone 'https://github.com/hashivim/vim-hashicorp-tools' && \
-	# git clone 'https://github.com/junegunn/fzf.vim' && \
+	git clone 'https://github.com/godlygeek/tabular' && \
+	git clone 'https://github.com/hashivim/vim-hashicorp-tools' && \
+	git clone 'https://github.com/junegunn/fzf.vim' && \
 	# git clone 'https://github.com/mileszs/ack.vim' && \
 	git clone 'https://github.com/roxma/vim-tmux-clipboard' && \
 	# git clone 'https://github.com/plasticboy/vim-markdown' && \
@@ -66,7 +66,7 @@ RUN mkdir -p /root/.vim/plugged && cd /root/.vim/plugged && \
 	git clone 'https://github.com/junegunn/limelight.vim' && \
 	git clone 'https://github.com/itchyny/lightline.vim' && \
 	git clone 'https://github.com/fatih/molokai'
-	# git clone 'https://github.com/ervandew/supertab'
+	git clone 'https://github.com/ervandew/supertab'
 
 
 #install go tools
