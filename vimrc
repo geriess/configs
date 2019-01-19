@@ -34,7 +34,7 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript'] } " JSX support
 " Visual aides
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 Plug 'fatih/molokai' " color scheme
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
+" Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
 " Plug 'itchyny/lightline.vim' " status bar
 Plug 't9md/vim-choosewin' " window label overlay
 
@@ -435,13 +435,6 @@ nmap [h :GitGutterPrevHunk<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>m :Goyo<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 limelight                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Activate limelight in Goyo mode
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 flake8                                  "

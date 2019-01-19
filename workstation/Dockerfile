@@ -63,9 +63,9 @@ RUN mkdir -p /root/.vim/plugged && cd /root/.vim/plugged && \
 	git clone 'https://github.com/othree/es.next.syntax.vim' && \
 	git clone 'https://github.com/mxw/vim-jsx' && \
 	git clone 'https://github.com/junegunn/goyo.vim' && \
-	git clone 'https://github.com/junegunn/limelight.vim' && \
-	git clone 'https://github.com/itchyny/lightline.vim' && \
-	git clone 'https://github.com/fatih/molokai'
+	# git clone 'https://github.com/junegunn/limelight.vim' && \
+	# git clone 'https://github.com/itchyny/lightline.vim' && \
+	git clone 'https://github.com/fatih/molokai' && \
 	git clone 'https://github.com/ervandew/supertab'
 
 
