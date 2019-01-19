@@ -1,17 +1,18 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  PLUGINS                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =================
+" ==== PLUGINS ====
+
 " Plugin manager is Vim-Plug: https://github.com/junegunn/vim-plug
+
 call plug#begin('~/.vim/plugged')
 
 " Utils
 Plug 'airblade/vim-gitgutter' " show git diff in sign column
-Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finde
+" Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finde
 Plug 'elzr/vim-json', { 'for': 'json' } " json highlighting
 Plug 'honza/vim-snippets' " snippet files
 Plug 'Raimondi/delimitMate' "automatic closing of surrounds
 Plug 'scrooloose/nerdtree' " amazing file explorer
-Plug 'sirver/ultisnips' " snippet engine
+Plug 'sirver/ultisnips'
 Plug 'ntpeters/vim-better-whitespace' " whitespace management
 Plug 'nvie/vim-flake8' " python checker
 
@@ -34,11 +35,22 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript'] } " JSX support
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 Plug 'fatih/molokai' " color scheme
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool
-Plug 'itchyny/lightline.vim' " status bar
+" Plug 'itchyny/lightline.vim' " status bar
 Plug 't9md/vim-choosewin' " window label overlay
 
+" Other - new
+" add the below to Dockerfile 
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'ervandew/supertab'
+Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plug 'ervandew/supertab'
+Plug 'hashivim/vim-hashicorp-tools'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'godlygeek/tabular'
 call plug#end()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  SETTINGS                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -81,7 +93,13 @@ set showcmd
 " Set CWD automatically based on current file
 autocmd BufEnter * silent! lcd %:p:h
 
-" Change colors
+set updatetime=300
+set pumheight=10   " Completion window max size          "
+set conceallevel=2 " Concealed text is completely hidden "
+
+" colors
+syntax enable
+set t_Co=256
 let g:rehash256 = 1
 set background=dark
 let g:molokai_original = 1
@@ -125,6 +143,8 @@ set wrap
 set lbr
 set showbreak=&
 
+set laststatus=2
+
 " Default
 set encoding=utf-8
 
@@ -145,7 +165,10 @@ set autowrite
 set hidden
 
 " Save Vim info on exit
-set viminfo='200
+set viminfo='1000
+
+" increase max memory to show syntax highlighting for large files
+set maxmempattern=20000
 
 " Dont show status since it's in lighline
 set noshowmode
@@ -158,7 +181,7 @@ set lazyredraw
  " No sounds on errors
 set noerrorbells
 set novisualbell
-set t_vb=
+" set t_vb=
 
 set history=500
 set nostartofline
@@ -180,17 +203,57 @@ set softtabstop=4           " edit as if the tabs are 4 characters wide
 set shiftwidth=4            " number of spaces to use for indent and unindent
 set shiftround              " round indent to a multiple of 'shiftwidth'
 
+
+if !has('nvim')
+  set ttymouse=xterm2
+  set ttyscroll=3
+endif
+
 set ttyfast                 " faster redrawing
-set ttyscroll=3
 set scrolloff=3             " lines of text around cursor
 
 set diffopt+=vertical
+
+
+set shortmess+=c   " Shut off completion messages
+set belloff+=ctrlg " If Vim beeps during completion
+
+
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.cache/vim
+endif
 
 " Windows
 if has("windows")
 	set guifont=Consolas:h15:cANSI
 	au GUIEnter * simalt ~x
 endif
+
+augroup filetypedetect
+  command! -nargs=* -complete=help Help vertical belowright help <args>
+  autocmd FileType help wincmd L
+  
+  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+  autocmd BufNewFile,BufRead *.hcl setf conf
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+
+  autocmd BufRead,BufNewFile *.gotmpl set filetype=gotexttmpl
+  
+  autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
+  autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
+  
+  autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
+augroup END
 
 " print path
 map <C-f> :echo expand("%:p")<cr>
@@ -208,8 +271,6 @@ function! Ender()
   normal `e
 endfunction
 
-" Allow colors
-syntax enable
 
 nnoremap <silent> <Leader>df :call DiffToggle()<CR>
 
@@ -395,67 +456,70 @@ autocmd BufWritePost *.py call Flake8() " run every time write to file
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 UltiSnips                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"
 
-function! g:UltiSnips_Complete()
-	call UltiSnips#ExpandSnippet()
-	if g:ulti_expand_res == 0
-		if pumvisible()
-			return "\<C-n>"
-		else
-			call UltiSnips#JumpForwards()
-			if g:ulti_jump_forwards_res == 0
-				return "\<TAB>"
-			endif
-		endif
-	endif
-	return ""
-endfunction
+" Ultisnips has native support for SuperTab. SuperTab does omnicompletion by
+" pressing tab. I like this better than autocompletion, but it's still fast.
+let g:SuperTabDefaultCompletionType = "context"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"  
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>" 
 
-function! g:UltiSnips_Reverse()
-	call UltiSnips#JumpBackwards()
-	if g:ulti_jump_backwards_res == 0
-		return "\<C-P>"
-	endif
+" function! g:UltiSnips_Complete()
+" 	call UltiSnips#ExpandSnippet()
+" 	if g:ulti_expand_res == 0
+" 		if pumvisible()
+" 			return "\<C-n>"
+" 		else
+" 			call UltiSnips#JumpForwards()
+" 			if g:ulti_jump_forwards_res == 0
+" 				return "\<TAB>"
+" 			endif
+" 		endif
+" 	endif
+" 	return ""
+" endfunction
 
-	return ""
-endfunction
+" function! g:UltiSnips_Reverse()
+" 	call UltiSnips#JumpBackwards()
+" 	if g:ulti_jump_backwards_res == 0
+" 		return "\<C-P>"
+" 	endif
+
+" 	return ""
+" endfunction
 
 
-if !exists("g:UltiSnipsJumpForwardTrigger")
-	let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
+" if !exists("g:UltiSnipsJumpForwardTrigger")
+" 	let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" endif
 
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
+" if !exists("g:UltiSnipsJumpBackwardTrigger")
+" 	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" endif
 
-" disable below causing issues
-" au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+" " disable below causing issues
+" " au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   CtrlP                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                                   CtrlP                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
 
-let g:ctrlp_switch_buffer = 'et'  " jump to a file if it's open already
-let g:ctrlp_mruf_max=450    " number of recently opened files
-let g:ctrlp_max_files=0     " do not limit the number of searchable files
-let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
-let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_switch_buffer = 'et'  " jump to a file if it's open already
+"let g:ctrlp_mruf_max=450    " number of recently opened files
+"let g:ctrlp_max_files=0     " do not limit the number of searchable files
+"let g:ctrlp_use_caching = 1
+"let g:ctrlp_clear_cache_on_exit = 0
+"let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+"let g:ctrlp_match_window = 'bottom,order:btt,max:10,results:10'
+"let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
+"let g:ctrlp_working_path_mode = 'ra'
 
-nmap <C-b> :CtrlPCurWD<cr>
-imap <C-b> <esc>:CtrlPCurWD<cr>
+"nmap <C-b> :CtrlPCurWD<cr>
+"imap <C-b> <esc>:CtrlPCurWD<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   vim-go                                   "
@@ -539,127 +603,250 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""                                 lightline                                  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" show status bar
+
+"let g:lightline = {
+"	\ 'active': {
+"	\   'left': [ [ 'mode', 'paste'],
+"	\             [ 'fugitive', 'filename', 'modified', 'ctrlpmark', 'go'] ],
+"	\   'right': [ [ 'lineinfo' ],
+"	\              [ 'percent' ],
+"	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+"	\ },
+"	\ 'component': {
+"	\   'go': '%#goStatuslineColor#%{LightLineGo()}',
+"	\ },
+"	\ 'component_visible_condition': {
+"	\ 'go': '(exists("*go#statusline#Show") && ""!=go#statusline#Show())'
+"	\ },
+"	\ 'component_function': {
+"	\   'lineinfo': 'LightLineInfo',
+"	\   'percent': 'LightLinePercent',
+"	\   'modified': 'LightLineModified',
+"	\   'filename': 'LightLineFilename',
+"	\   'fileformat': 'LightLineFileformat',
+"	\   'filetype': 'LightLineFiletype',
+"	\   'fileencoding': 'LightLineFileencoding',
+"	\   'mode': 'LightLineMode',
+"	\   'fugitive': 'LightLineFugitive',
+"	\   'ctrlpmark': 'CtrlPMark',
+"	\ },
+"	\ }
+
+"function! LightLineModified()
+"if &filetype == "help"
+"	return ""
+"elseif &modified
+"	return "+"
+"elseif &modifiable
+"	return ""
+"else
+"	return ""
+"endif
+"endfunction
+
+"function! LightLineFileformat()
+"	return winwidth(0) > 70 ? &fileformat : ''
+"endfunction
+
+"function! LightLineFiletype()
+"	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+"endfunction
+
+"function! LightLineFileencoding()
+"	return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+"endfunction
+
+"function! LightLineInfo()
+"	return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
+"endfunction
+
+"function! LightLinePercent()
+"	return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
+"endfunction
+
+"function! LightLineFugitive()
+"	return exists('*fugitive#head') ? fugitive#head() : ''
+"endfunction
+
+"function! LightLineGo()
+"	return exists('*go#statusline#Show') ? go#statusline#Show() : ''
+"endfunction
+
+"function! LightLineMode()
+"	let fname = expand('%:t')
+"	return fname == 'ControlP' ? 'CtrlP' :
+"				\ &ft == 'vimfiler' ? 'VimFiler' :
+"				\ winwidth(0) > 60 ? lightline#mode() : ''
+"endfunction
+
+"function! LightLineFilename()
+"	let fname = expand('%:t')
+"	if mode() == 't'
+"		return ''
+"	endif
+
+"	return fname == 'ControlP' ? g:lightline.ctrlp_item :
+"				\ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+"				\ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+"				\ ('' != fname ? fname : '[No Name]')
+"endfunction
+
+"function! LightLineReadonly()
+"	return &ft !~? 'help' && &readonly ? 'RO' : ''
+"endfunction
+
+"function! CtrlPMark()
+"	if expand('%:t') =~ 'ControlP'
+"		call lightline#link('iR'[g:lightline.ctrlp_regex])
+"		return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+"					\ , g:lightline.ctrlp_next], 0)
+"	else
+"		return ''
+"	endif
+"endfunction
+
+"let g:ctrlp_status_func = {
+"			\ 'main': 'CtrlPStatusFunc_1',
+"			\ 'prog': 'CtrlPStatusFunc_2',
+"			\ }
+
+"function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+"	let g:lightline.ctrlp_regex = a:regex
+"	let g:lightline.ctrlp_prev = a:prev
+"	let g:lightline.ctrlp_item = a:item
+"	let g:lightline.ctrlp_next = a:next
+"	return lightline#statusline(0)
+"endfunction
+
+"function! CtrlPStatusFunc_2(str)
+"	return lightline#statusline(0)
+"endfunction
+
+
+"=====================================================
+"===================== STATUSLINE ====================
+
+let s:modes = {
+      \ 'n': 'NORMAL', 
+      \ 'i': 'INSERT', 
+      \ 'R': 'REPLACE', 
+      \ 'v': 'VISUAL', 
+      \ 'V': 'V-LINE', 
+      \ "\<C-v>": 'V-BLOCK',
+      \ 'c': 'COMMAND',
+      \ 's': 'SELECT', 
+      \ 'S': 'S-LINE', 
+      \ "\<C-s>": 'S-BLOCK', 
+      \ 't': 'TERMINAL'
+      \}
+
+let s:prev_mode = ""
+function! StatusLineMode()
+  let cur_mode = get(s:modes, mode(), '')
+
+  " do not update higlight if the mode is the same
+  if cur_mode == s:prev_mode
+    return cur_mode
+  endif
+
+  if cur_mode == "NORMAL"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=148 ctermfg=22'
+  elseif cur_mode == "INSERT"
+    exe 'hi! myModeColor cterm=bold ctermbg=23 ctermfg=231'
+  elseif cur_mode == "VISUAL" || cur_mode == "V-LINE" || cur_mode == "V_BLOCK"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=208 ctermfg=88'
+  endif
+
+  let s:prev_mode = cur_mode
+  return cur_mode
+endfunction
+
+function! StatusLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLinePercent()
+  return (100 * line('.') / line('$')) . '%'
+endfunction
+
+function! StatusLineLeftInfo()
+ let branch = fugitive#head()
+ let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+ if branch !=# ''
+   return printf("%s | %s", branch, filename)
+ endif
+ return filename
+endfunction
+
+exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
+
+" start building our statusline
+set statusline=
+
+" mode with custom colors
+set statusline+=%#myModeColor#
+set statusline+=%{StatusLineMode()}               
+set statusline+=%*
+
+" left information bar (after mode)
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineLeftInfo()}
+set statusline+=\ %*
+
+" go command status (requires vim-go)
+set statusline+=%#goStatuslineColor#
+set statusline+=%{go#statusline#Show()}
+set statusline+=%*
+
+" right section seperator
+set statusline+=%=
+
+" filetype, percentage, line number and column number
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineFiletype()}\ %{StatusLinePercent()}\ %l:%v
+set statusline+=\ %*
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 lightline                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" show status bar
-set laststatus=2
+" ==================== ag ====================
+let g:ackprg = 'ag --vimgrep --smart-case'                                                   
 
-let g:lightline = {
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste'],
-	\             [ 'fugitive', 'filename', 'modified', 'ctrlpmark', 'go'] ],
-	\   'right': [ [ 'lineinfo' ],
-	\              [ 'percent' ],
-	\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-	\ },
-	\ 'component': {
-	\   'go': '%#goStatuslineColor#%{LightLineGo()}',
-	\ },
-	\ 'component_visible_condition': {
-	\ 'go': '(exists("*go#statusline#Show") && ""!=go#statusline#Show())'
-	\ },
-	\ 'component_function': {
-	\   'lineinfo': 'LightLineInfo',
-	\   'percent': 'LightLinePercent',
-	\   'modified': 'LightLineModified',
-	\   'filename': 'LightLineFilename',
-	\   'fileformat': 'LightLineFileformat',
-	\   'filetype': 'LightLineFiletype',
-	\   'fileencoding': 'LightLineFileencoding',
-	\   'mode': 'LightLineMode',
-	\   'fugitive': 'LightLineFugitive',
-	\   'ctrlpmark': 'CtrlPMark',
-	\ },
-	\ }
+" ==================== FZF ====================
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'down': '~20%' }
 
-function! LightLineModified()
-if &filetype == "help"
-	return ""
-elseif &modified
-	return "+"
-elseif &modifiable
-	return ""
-else
-	return ""
-endif
-endfunction
+" search 
+nmap <C-p> :FzfHistory<cr>
+imap <C-p> <esc>:<C-u>FzfHistory<cr>
 
-function! LightLineFileformat()
-	return winwidth(0) > 70 ? &fileformat : ''
-endfunction
+" search across files in the current directory
+nmap <C-b> :FzfFiles<cr>
+imap <C-b> <esc>:<C-u>FzfFiles<cr>
 
-function! LightLineFiletype()
-	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
 
-function! LightLineFileencoding()
-	return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
-function! LightLineInfo()
-	return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
-endfunction
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
-function! LightLinePercent()
-	return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
-endfunction
+" ==== other plugins ====
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-function! LightLineFugitive()
-	return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
-
-function! LightLineGo()
-	return exists('*go#statusline#Show') ? go#statusline#Show() : ''
-endfunction
-
-function! LightLineMode()
-	let fname = expand('%:t')
-	return fname == 'ControlP' ? 'CtrlP' :
-				\ &ft == 'vimfiler' ? 'VimFiler' :
-				\ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! LightLineFilename()
-	let fname = expand('%:t')
-	if mode() == 't'
-		return ''
-	endif
-
-	return fname == 'ControlP' ? g:lightline.ctrlp_item :
-				\ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-				\ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-				\ ('' != fname ? fname : '[No Name]')
-endfunction
-
-function! LightLineReadonly()
-	return &ft !~? 'help' && &readonly ? 'RO' : ''
-endfunction
-
-function! CtrlPMark()
-	if expand('%:t') =~ 'ControlP'
-		call lightline#link('iR'[g:lightline.ctrlp_regex])
-		return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-					\ , g:lightline.ctrlp_next], 0)
-	else
-		return ''
-	endif
-endfunction
-
-let g:ctrlp_status_func = {
-			\ 'main': 'CtrlPStatusFunc_1',
-			\ 'prog': 'CtrlPStatusFunc_2',
-			\ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-	let g:lightline.ctrlp_regex = a:regex
-	let g:lightline.ctrlp_prev = a:prev
-	let g:lightline.ctrlp_item = a:item
-	let g:lightline.ctrlp_next = a:next
-	return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-	return lightline#statusline(0)
-endfunction
+nmap <Leader>gi <Plug>(grammarous-open-info-window)
+nmap <Leader>gc <Plug>(grammarous-close-info-window)
+nmap <Leader>gf <Plug>(grammarous-fixit)
