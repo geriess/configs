@@ -766,8 +766,8 @@ function! s:create_front_matter()
 
   call add(fm, 'featured_image = ""')
   call add(fm, 'description = ""')
-  call add(fm, "+++")
   call add(fm, 'draft = true')
+  call add(fm, "+++")
   call append(0, fm)
 endfunction
 
