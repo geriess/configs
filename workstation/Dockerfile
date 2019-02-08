@@ -230,7 +230,7 @@ RUN git clone https://github.com/tmux-plugins/tmux-yank.git ~/.tmux/plugins/tmux
 RUN git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.tmux/plugins/tmux-prefix-highlight
 
 # install Elixir solution repo
-RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb && sudo apt-get update
+RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb && rm -rf https://github.com/elixir-editors/vim-elixir.git && sudo apt-get update
 
 # install Erlang & OTP
 RUN sudo apt-get install -y esl-erlang
