@@ -66,7 +66,8 @@ RUN mkdir -p /root/.vim/plugged && cd /root/.vim/plugged && \
 	# git clone 'https://github.com/junegunn/limelight.vim' && \
 	# git clone 'https://github.com/itchyny/lightline.vim' && \
 	git clone 'https://github.com/fatih/molokai' && \
-	git clone 'https://github.com/ervandew/supertab'
+	git clone 'https://github.com/ervandew/supertab' && \
+	git clone 'https://github.com/elixir-lang/vim-elixir.git'
 
 
 #install go tools
@@ -227,6 +228,15 @@ RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 RUN git clone https://github.com/tmux-plugins/tmux-open.git ~/.tmux/plugins/tmux-open
 RUN git clone https://github.com/tmux-plugins/tmux-yank.git ~/.tmux/plugins/tmux-yank
 RUN git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.tmux/plugins/tmux-prefix-highlight
+
+# install Elixir solution repo
+RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb && sudo apt-get update
+
+# install Erlang & OTP
+RUN sudo apt-get install -y esl-erlang
+
+# install Elixir
+RUN sudo apt-get install -y elixir
 
 # install dotfiles
 RUN mkdir -p /root/code && cd /root/code && \

@@ -19,6 +19,9 @@ Plug 'nvie/vim-flake8' " python checker
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " Golang amazingness
 
+" Elixir
+Plug 'elixir-editors/vim-elixir'
+
 " tpope
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-fugitive' " git tool set
@@ -764,8 +767,8 @@ function! s:create_front_matter()
   call add(fm, printf("slug = \"%s\"", slug))
   call add(fm, printf("url = \"%s/%s/\"", strftime("%Y/%m/%d"), slug))
 
-  call add(fm, 'featured_image = ""')
-  call add(fm, 'description = ""')
+  " call add(fm, 'featured_image = ""')
+  " call add(fm, 'description = ""')
   call add(fm, 'draft = true')
   call add(fm, "+++")
   call append(0, fm)
