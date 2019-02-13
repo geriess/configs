@@ -4,7 +4,7 @@ resource "digitalocean_droplet" "dev" {
   image = "ubuntu-18-10-x64"
   name = "dev-${count.index}"
   region = "nyc1"
-  size = "512mb"
+  size = "1gb"
  private_networking = true
  backups = true
  ipv6 = true
@@ -65,6 +65,11 @@ resource "digitalocean_firewall" "dev" {
     {
       protocol         = "tcp"
       port_range       = "3222"
+      source_addresses = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      protocol         = "tcp"
+      port_range       = "1313"
       source_addresses = ["0.0.0.0/0", "::/0"]
     },
     {
