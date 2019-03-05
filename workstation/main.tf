@@ -68,6 +68,11 @@ resource "digitalocean_firewall" "dev" {
       source_addresses = ["0.0.0.0/0", "::/0"]
     },
     {
+      protocol         = "tcp"
+      port_range       = "1313"
+      source_addresses = ["0.0.0.0/0", "::/0"]
+    },
+    {
       protocol         = "udp"
       port_range       = "60000-60010"
       source_addresses = ["0.0.0.0/0", "::/0"]
