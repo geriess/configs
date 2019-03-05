@@ -9,10 +9,11 @@ setup and ready to use mosh setup.
 1. Create workstation droplet
 
 ``
-$ export DIGITALOCEAN_TOKEN="Put Your Token Here" 
-$ terraform plan
-$ terraform apply -auto-approve
+$ export DO_TOKEN="Put Your Token Here"
+$ terraform plan -var "do_token=${DO_TOKEN}"
+$ terraform apply -auto-approve -var "do_token=${DO_TOKEN}"
 ``
+
 2. SSH via mosh:
 
 ``
@@ -23,6 +24,3 @@ $ cd ~/secrets && ./pull-secrets.sh
 
 ## Todo
 
-* Fix pull-secrets
-* Encrypt /mnt/secrets
-* Resync back some dynamic files (such as `.zsh_history`) back to 1password occasionally`
