@@ -4,7 +4,7 @@ resource "digitalocean_droplet" "dev" {
   image = "ubuntu-18-10-x64"
   name = "dev-${count.index}"
   region = "nyc1"
-  size = "s-1vcpu-2gb"
+  size = "s-1vcpu-1gb"
  private_networking = true
  backups = true
  ipv6 = true
