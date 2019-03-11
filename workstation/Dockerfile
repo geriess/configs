@@ -110,6 +110,7 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -qq -y \
 	direnv \
 	dnsutils \
 	docker.io \
+	exiftran \
 	fakeroot-ng \
 	gdb \
 	git \
