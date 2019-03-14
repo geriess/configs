@@ -139,7 +139,9 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -qq -y \
 	ncdu \
 	netcat-openbsd \
 	openssh-server \
+	optipng \
 	pkg-config \
+	pngquant \
 	postgresql-contrib \
 	protobuf-compiler \
 	pwgen \
