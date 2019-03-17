@@ -136,6 +136,7 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -qq -y \
 	mosh \
 	mtr-tiny \
 	musl-tools \
+	net-tools \
 	ncdu \
 	netcat-openbsd \
 	openssh-server \
